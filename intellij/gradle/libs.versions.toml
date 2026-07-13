@@ -1,0 +1,15 @@
+[versions]
+junit = "4.13.2"
+# IntelliJ Platform Gradle Plugin 2.x is required for Gradle 9 compatibility.
+# 2.16.0+ is required to launch newer IDEs (build 261/2025.3+) — older versions fail at VM init with
+# ClassNotFoundException: com.intellij.platform.core.nio.fs.MultiRoutingFileSystemProvider.
+intellijPlatform = "2.16.0"
+
+[libraries]
+junit = { module = "junit:junit", version.ref = "junit" }
+
+[plugins]
+# Kotlin 2.2.0+ is required for the compiler to read JDK 26 modules.
+kotlin = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }
+intellijPlatform = { id = "org.jetbrains.intellij.platform", version.ref = "intellijPlatform" }
+changelog = { id = "org.jetbrains.changelog", version = "2.2.1" }

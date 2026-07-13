@@ -1,0 +1,351 @@
+{
+  "name": "nylo",
+  "displayName": "Nylo",
+  "description": "Utilities for Nylo Flutter projects: per-environment run configs, logs, localizations and screenshots.",
+  "version": "0.1.0",
+  "publisher": "nylo",
+  "license": "MIT",
+  "homepage": "https://nylo.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nylo-core/nylo-plugin-vscode"
+  },
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "nylo",
+    "flutter",
+    "dart"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/pubspec.yaml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "nylo",
+          "title": "Nylo",
+          "icon": "media/icons/nylo.svg"
+        }
+      ]
+    },
+    "views": {
+      "nylo": [
+        {
+          "id": "nylo.logs",
+          "name": "Logs",
+          "when": "nylo.isNyloProject"
+        },
+        {
+          "id": "nylo.localizations",
+          "name": "Localizations",
+          "when": "nylo.isNyloProject"
+        },
+        {
+          "id": "nylo.screenshots",
+          "name": "Screenshots",
+          "when": "nylo.isNyloProject"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "nylo.runEnvironment",
+        "title": "Run Environment…",
+        "category": "Nylo",
+        "icon": "$(play)"
+      },
+      {
+        "command": "nylo.logs.refresh",
+        "title": "Refresh Logs",
+        "category": "Nylo",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "nylo.logs.pickDate",
+        "title": "Select Log Date…",
+        "category": "Nylo",
+        "icon": "$(calendar)"
+      },
+      {
+        "command": "nylo.logs.search",
+        "title": "Filter Logs…",
+        "category": "Nylo",
+        "icon": "$(search)"
+      },
+      {
+        "command": "nylo.logs.filterSession",
+        "title": "Filter by Session…",
+        "category": "Nylo",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "nylo.logs.selectCategory",
+        "title": "Select Log Category…",
+        "category": "Nylo",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "nylo.logs.toggleSort",
+        "title": "Toggle Log Sort Order",
+        "category": "Nylo",
+        "icon": "$(sort-precedence)"
+      },
+      {
+        "command": "nylo.logs.toggleFollow",
+        "title": "Toggle Follow (Live Tail)",
+        "category": "Nylo",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "nylo.logs.clearFilters",
+        "title": "Clear Log Filters",
+        "category": "Nylo",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "nylo.localizations.refresh",
+        "title": "Refresh Localizations",
+        "category": "Nylo",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "nylo.localizations.selectMode",
+        "title": "Localizations: Switch View…",
+        "category": "Nylo",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "nylo.localizations.setBaseline",
+        "title": "Localizations: Set Baseline Locale…",
+        "category": "Nylo",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "nylo.localizations.toggleSameAsBase",
+        "title": "Localizations: Toggle Same-as-Base Flagging",
+        "category": "Nylo",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "nylo.localizations.toggleProblemsOnly",
+        "title": "Localizations: Toggle Problems-Only (Matrix)",
+        "category": "Nylo",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "nylo.localizations.scanHardcoded",
+        "title": "Localizations: Scan Hardcoded Strings",
+        "category": "Nylo",
+        "icon": "$(search)"
+      },
+      {
+        "command": "nylo.localizations.editValue",
+        "title": "Edit Translation…",
+        "category": "Nylo",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "nylo.localizations.openTarget",
+        "title": "Open Target",
+        "category": "Nylo"
+      },
+      {
+        "command": "nylo.localizations.setKeyFilter",
+        "title": "Localizations: Filter Keys…",
+        "category": "Nylo",
+        "icon": "$(search)"
+      },
+      {
+        "command": "nylo.localizations.setLocaleFilter",
+        "title": "Localizations: Focus Locale…",
+        "category": "Nylo",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "nylo.localizations.toggleShowMissing",
+        "title": "Localizations: Toggle Missing Issues",
+        "category": "Nylo"
+      },
+      {
+        "command": "nylo.localizations.toggleShowEmpty",
+        "title": "Localizations: Toggle Empty Issues",
+        "category": "Nylo"
+      },
+      {
+        "command": "nylo.localizations.toggleShowExtra",
+        "title": "Localizations: Toggle Extra-Key Issues",
+        "category": "Nylo"
+      },
+      {
+        "command": "nylo.screenshots.start",
+        "title": "Screenshots: Start Capture",
+        "category": "Nylo",
+        "icon": "$(play)"
+      },
+      {
+        "command": "nylo.screenshots.stop",
+        "title": "Screenshots: Stop",
+        "category": "Nylo",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "nylo.screenshots.refresh",
+        "title": "Screenshots: Refresh",
+        "category": "Nylo",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "nylo.screenshots.refreshDevices",
+        "title": "Screenshots: Refresh Devices",
+        "category": "Nylo",
+        "icon": "$(device-mobile)"
+      },
+      {
+        "command": "nylo.screenshots.scaffold",
+        "title": "Screenshots: Scaffold lib/config/screenshots.dart",
+        "category": "Nylo",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "nylo.screenshots.filterPages",
+        "title": "Screenshots: Filter Pages…",
+        "category": "Nylo",
+        "icon": "$(search)"
+      },
+      {
+        "command": "nylo.screenshots.pagesSelectAll",
+        "title": "Screenshots: Select All Pages",
+        "category": "Nylo",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "nylo.screenshots.pagesSelectNone",
+        "title": "Screenshots: Select No Pages",
+        "category": "Nylo",
+        "icon": "$(clear-all)"
+      }
+    ],
+    "configuration": {
+      "title": "Nylo",
+      "properties": {
+        "nylo.screenshots.outputDir": {
+          "type": "string",
+          "default": "screenshots",
+          "scope": "resource",
+          "markdownDescription": "Output folder for captured screenshots, relative to the project root (or an absolute path)."
+        },
+        "nylo.screenshots.settleMs": {
+          "type": "number",
+          "default": 1200,
+          "scope": "resource",
+          "markdownDescription": "Milliseconds to wait for a page to settle before capturing."
+        },
+        "nylo.screenshots.windowMs": {
+          "type": "number",
+          "default": 1200,
+          "scope": "resource",
+          "markdownDescription": "Milliseconds the screenshot driver holds each screen — the capture lands inside this window."
+        },
+        "nylo.screenshots.cleanStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "markdownDescription": "Apply a clean \"marketing\" status bar (9:41, full battery/signal) during capture."
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        { "command": "nylo.runEnvironment", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.refresh", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.pickDate", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.search", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.filterSession", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.selectCategory", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.toggleSort", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.toggleFollow", "when": "nylo.isNyloProject" },
+        { "command": "nylo.logs.clearFilters", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.refresh", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.selectMode", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.setBaseline", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.toggleSameAsBase", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.toggleProblemsOnly", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.scanHardcoded", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.setKeyFilter", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.setLocaleFilter", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.toggleShowMissing", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.toggleShowEmpty", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.toggleShowExtra", "when": "nylo.isNyloProject" },
+        { "command": "nylo.localizations.editValue", "when": "false" },
+        { "command": "nylo.localizations.openTarget", "when": "false" },
+        { "command": "nylo.screenshots.start", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.stop", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.refresh", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.refreshDevices", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.scaffold", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.filterPages", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.pagesSelectAll", "when": "nylo.isNyloProject" },
+        { "command": "nylo.screenshots.pagesSelectNone", "when": "nylo.isNyloProject" }
+      ],
+      "view/title": [
+        { "command": "nylo.logs.search", "when": "view == nylo.logs", "group": "navigation@1" },
+        { "command": "nylo.logs.pickDate", "when": "view == nylo.logs", "group": "navigation@2" },
+        { "command": "nylo.logs.toggleFollow", "when": "view == nylo.logs", "group": "navigation@3" },
+        { "command": "nylo.logs.refresh", "when": "view == nylo.logs", "group": "navigation@5" },
+        { "command": "nylo.logs.selectCategory", "when": "view == nylo.logs", "group": "1_filter@1" },
+        { "command": "nylo.logs.filterSession", "when": "view == nylo.logs", "group": "1_filter@2" },
+        { "command": "nylo.logs.toggleSort", "when": "view == nylo.logs", "group": "1_filter@3" },
+        { "command": "nylo.logs.clearFilters", "when": "view == nylo.logs", "group": "1_filter@4" },
+        { "command": "nylo.localizations.selectMode", "when": "view == nylo.localizations", "group": "navigation@1" },
+        { "command": "nylo.localizations.setBaseline", "when": "view == nylo.localizations", "group": "navigation@2" },
+        { "command": "nylo.localizations.scanHardcoded", "when": "view == nylo.localizations", "group": "navigation@3" },
+        { "command": "nylo.localizations.refresh", "when": "view == nylo.localizations", "group": "navigation@5" },
+        { "command": "nylo.localizations.setKeyFilter", "when": "view == nylo.localizations", "group": "navigation@0" },
+        { "command": "nylo.localizations.toggleProblemsOnly", "when": "view == nylo.localizations", "group": "1_loc@1" },
+        { "command": "nylo.localizations.toggleSameAsBase", "when": "view == nylo.localizations", "group": "1_loc@2" },
+        { "command": "nylo.localizations.setLocaleFilter", "when": "view == nylo.localizations", "group": "1_loc@3" },
+        { "command": "nylo.localizations.toggleShowMissing", "when": "view == nylo.localizations", "group": "1_loc@4" },
+        { "command": "nylo.localizations.toggleShowEmpty", "when": "view == nylo.localizations", "group": "1_loc@5" },
+        { "command": "nylo.localizations.toggleShowExtra", "when": "view == nylo.localizations", "group": "1_loc@6" },
+        { "command": "nylo.screenshots.start", "when": "view == nylo.screenshots", "group": "navigation@1" },
+        { "command": "nylo.screenshots.stop", "when": "view == nylo.screenshots", "group": "navigation@2" },
+        { "command": "nylo.screenshots.refreshDevices", "when": "view == nylo.screenshots", "group": "navigation@3" },
+        { "command": "nylo.screenshots.refresh", "when": "view == nylo.screenshots", "group": "navigation@4" },
+        { "command": "nylo.screenshots.scaffold", "when": "view == nylo.screenshots", "group": "1_ss@1" },
+        { "command": "nylo.screenshots.filterPages", "when": "view == nylo.screenshots", "group": "1_ss@2" },
+        { "command": "nylo.screenshots.pagesSelectAll", "when": "view == nylo.screenshots", "group": "1_ss@3" },
+        { "command": "nylo.screenshots.pagesSelectNone", "when": "view == nylo.screenshots", "group": "1_ss@4" }
+      ],
+      "view/item/context": [
+        { "command": "nylo.screenshots.filterPages", "when": "view == nylo.screenshots && viewItem == nyloSsSection-pages", "group": "inline@1" },
+        { "command": "nylo.screenshots.pagesSelectAll", "when": "view == nylo.screenshots && viewItem == nyloSsSection-pages", "group": "inline@2" },
+        { "command": "nylo.screenshots.pagesSelectNone", "when": "view == nylo.screenshots && viewItem == nyloSsSection-pages", "group": "inline@3" }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "package": "node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "compile-tests": "tsc -p ./tsconfig.json",
+    "pretest": "npm run compile-tests",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.84.0",
+    "esbuild": "^0.21.5",
+    "mocha": "^10.4.0",
+    "typescript": "^5.4.5"
+  }
+}

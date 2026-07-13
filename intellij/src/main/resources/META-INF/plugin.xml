@@ -1,0 +1,93 @@
+<idea-plugin>
+    <id>dev.nylo.plugin</id>
+    <name>Nylo</name>
+    <vendor email="support@nylo.dev" url="https://nylo.dev">Nylo</vendor>
+
+    <description><![CDATA[
+        <h2>Nylo for Android Studio</h2>
+        <p>
+            Utilities for <a href="https://nylo.dev">Nylo</a> Flutter projects. Auto-detects
+            <code>.env*</code> environment files and generates matching Flutter run configurations
+            and Metro <code>make:env</code> external tools — so you can switch between
+            <em>Dev</em>, <em>Prod</em>, <em>Staging</em>, and any other environment with one click.
+        </p>
+        <h3>Features</h3>
+        <ul>
+            <li>Auto-syncs run configurations on project open and live as you add or remove <code>.env*</code> files.</li>
+            <li>Manual <em>Tools → Sync Nylo Environments</em> action.</li>
+            <li>Removes the run configuration and Metro External Tool when an <code>.env*</code> file is deleted.</li>
+            <li>Title-cased display names (<code>.env.prod.staging → Prod Staging</code>).</li>
+            <li><strong>Nylo Logs</strong> tool window: browse the app's <code>logs/</code> with date, session and text filters.</li>
+            <li><strong>Nylo Screenshots</strong> tool window: capture App Store / Play Store screenshots of any
+                page across multiple locales and devices, driven by Nylo's built-in screenshot mode.</li>
+        </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>0.3.0</h3>
+        <ul>
+            <li><strong>Live <code>.env*</code> sync</strong>: run configurations and Metro External Tools are now
+                created and removed automatically as you add or delete <code>.env*</code> files — no restart or
+                manual sync needed. Deleting an <code>.env*</code> file also removes its Metro External Tool.</li>
+        </ul>
+        <h3>0.2.0</h3>
+        <ul>
+            <li><strong>Nylo Screenshots</strong>: a new left-stripe tool window that lists your pages
+                (parsed from <code>router.dart</code>), locales (<code>lang/</code>) and running devices, then
+                captures device-resolution screenshots of each page/locale via Nylo screenshot mode.</li>
+        </ul>
+        <h3>0.1.0</h3>
+        <ul>
+            <li>Initial release: <code>.env*</code> auto-detection and Flutter run config / Metro External Tools generation.</li>
+        </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>io.flutter</depends>
+    <depends>Dart</depends>
+
+    <resource-bundle>messages.NyloBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="dev.nylo.plugin.startup.NyloProjectActivity"/>
+
+        <notificationGroup id="Nylo"
+                           displayType="BALLOON"
+                           isLogByDefault="true"
+                           bundle="messages.NyloBundle"
+                           key="notification.group.nylo"/>
+
+        <toolWindow id="Nylo Logs"
+                    anchor="left"
+                    canCloseContents="false"
+                    icon="dev.nylo.plugin.logs.ui.LogIcons.TOOL_WINDOW"
+                    factoryClass="dev.nylo.plugin.logs.ui.LogInspectorToolWindowFactory"/>
+
+        <toolWindow id="Nylo Screenshots"
+                    anchor="left"
+                    canCloseContents="false"
+                    icon="dev.nylo.plugin.screenshots.ui.ScreenshotIcons.TOOL_WINDOW"
+                    factoryClass="dev.nylo.plugin.screenshots.ui.ScreenshotToolWindowFactory"/>
+
+        <toolWindow id="Nylo Localizations"
+                    anchor="left"
+                    canCloseContents="false"
+                    icon="AllIcons.General.Web"
+                    factoryClass="dev.nylo.plugin.localizations.ui.LocalizationToolWindowFactory"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="dev.nylo.plugin.env.EnvFileWatcher"
+                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+        <listener class="dev.nylo.plugin.localizations.watch.LangFileWatcher"
+                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+    </projectListeners>
+
+    <actions>
+        <action id="Nylo.SyncEnvironments"
+                class="dev.nylo.plugin.actions.SyncNyloEnvironmentsAction"
+                icon="AllIcons.Actions.Refresh">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

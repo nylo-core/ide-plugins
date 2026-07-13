@@ -1,0 +1,51 @@
+name: VS Code Release
+
+on:
+  push:
+    tags: ['vscode-v*']
+
+defaults:
+  run:
+    working-directory: vscode
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      # Optional Open VSX target — the publish step auto-skips when this secret is unset.
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: vscode/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run check-types
+
+      # `vsce package` runs the `vscode:prepublish` script (esbuild --production) to build the bundle.
+      # `--no-dependencies` is correct for an esbuild-bundled extension: dist/extension.js already
+      # contains everything, so node_modules must not be packed into the .vsix.
+      - name: Package extension (.vsix)
+        run: npx --yes @vscode/vsce package --no-dependencies -o nylo.vsix
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx --yes @vscode/vsce publish --packagePath nylo.vsix
+
+      - name: Publish to Open VSX
+        if: env.OVSX_PAT != ''
+        run: npx --yes ovsx publish nylo.vsix -p "$OVSX_PAT"
+
+      - name: Upload .vsix artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nylo-vsix
+          path: vscode/nylo.vsix

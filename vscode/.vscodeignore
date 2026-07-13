@@ -1,0 +1,13 @@
+.vscode/**
+.vscode-test/**
+out/**
+node_modules/**
+src/**
+.gitignore
+.mocharc.json
+esbuild.js
+tsconfig.json
+**/*.map
+**/*.test.ts
+**/tsconfig.json
+LOG_INSPECTOR_PLAN.md

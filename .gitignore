@@ -1,0 +1,28 @@
+# IntelliJ Platform plugin build outputs
+build/
+.idea/
+*.iml
+.kotlin/
+.intellijPlatform/
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Local config
+local.properties
+*.log
+
+# Playwright MCP browser-automation artifacts
+.playwright-mcp/
